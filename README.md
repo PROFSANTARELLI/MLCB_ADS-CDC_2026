@@ -1,4 +1,4 @@
-# MLCB_ADS-CDC_2026
+# MLCB_ADS-CDC_2026 - https://github.com/PROFSANTARELLI/MLCB_ADS-CDC_2026
 
 Repositório Oficial da Disciplina de Machine Learning e Chatbots
 

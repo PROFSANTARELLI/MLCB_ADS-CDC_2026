@@ -1,0 +1,98 @@
+# ==============================================================================
+# 1. IMPORTAÇÃO DE BIBLIOTECAS ESSENCIAIS
+# ==============================================================================
+# Importa o módulo sys para verificar a versão do interpretador Python rodando no Colab
+import sys
+
+# Importa a biblioteca scikit-learn (sklearn), principal ferramenta de ML em Python
+import sklearn
+
+# Importa a biblioteca pandas para manipulação e análise de dados estruturados
+import pandas as pd
+
+# Importa a biblioteca numpy para operações matemáticas e vetoriais de alta performance
+import numpy as np
+
+# ==============================================================================
+# 2. VALIDAÇÃO E DIAGNÓSTICO DO AMBIENTE
+# ==============================================================================
+# Imprime um cabeçalho para organização visual do log
+print("=== VALIDAÇÃO DO AMBIENTE DE DESENVOLVIMENTO ===")
+
+# Exibe no console a versão exata do Python que está sendo executada
+print(f"Versão do Python: {sys.version}")
+
+# Exibe a versão instalada do Scikit-Learn para garantir compatibilidade
+print(f"Versão do Scikit-Learn: {sklearn.__version__}")
+
+# Exibe a versão instalada do Pandas
+print(f"Versão do Pandas: {pd.__version__}")
+
+# Mensagem confirmando que todas as bibliotecas padrão carregaram sem erros
+print("Status do Ambiente: PRONTO E CONFIGURADO COM SUCESSO!\n")
+
+# ==============================================================================
+# 3. PREPARAÇÃO DO DATASET DE TREINAMENTO (SUPERVISIONADO)
+# ==============================================================================
+# Cria uma lista de strings contendo as frases que serão usadas para ensinar o modelo
+mensagens_treino = [
+    "Adorei o atendimento, muito rápido",
+    "Péssimo serviço, não resolveram meu problema",
+    "Muito bom o bot, respondeu direitinho",
+    "Horrível, estou muito insatisfeito",
+    "Excelente suporte, parabéns"
+]
+
+# Cria a lista de rótulos (labels/gabarito) correspondente exatamente a cada frase acima
+rotulos_treino = [
+    "positivo",
+    "negativo",
+    "positivo",
+    "negativo",
+    "positivo"
+]
+
+# ==============================================================================
+# 4. ENGENHARIA DE FEATURES (VETORIZAÇÃO DE TEXTO)
+# ==============================================================================
+# Importa a classe CountVectorizer, que transforma texto em matriz numérica de contagem de palavras
+from sklearn.feature_extraction.text import CountVectorizer
+
+# Instancia o objeto vetorizador na memória
+vetorizador = CountVectorizer()
+
+# O método fit_transform lê todo o texto, cria o vocabulário único e converte as frases em números
+matriz_vetorizada = vetorizador.fit_transform(mensagens_treino)
+
+# ==============================================================================
+# 5. MODELAGEM E TREINAMENTO DO ALGORITMO
+# ==============================================================================
+# Importa o algoritmo Naive Bayes (MultinomialNB), ideal para classificação de texto
+from sklearn.naive_bayes import MultinomialNB
+
+# Instancia o classificador Naive Bayes
+modelo_classificador = MultinomialNB()
+
+# O método fit realiza o aprendizado: conecta os vetores numéricos aos seus respectivos rótulos
+modelo_classificador.fit(matriz_vetorizada, rotulos_treino)
+
+# Imprime confirmação de que o modelo concluiu o treinamento
+print("=== MODELO TREINADO COM SUCESSO ===\n")
+
+# ==============================================================================
+# 6. TESTE E INFERÊNCIA COM DADOS INÉDITOS
+# ==============================================================================
+# Define uma nova lista com uma frase inédita que o modelo NUNCA viu durante o treino
+nova_mensagem_teste = ["O serviço foi incrível e rápido"]
+
+# Transforma a nova frase em números usando a MESMA estrutura de vocabulário criada no treino (transform)
+matriz_nova_mensagem = vetorizador.transform(nova_mensagem_teste)
+
+# O método predict faz a inferência e devolve a classe prevista (positivo ou negativo)
+predicao_resultado = modelo_classificador.predict(matriz_nova_mensagem)
+
+# Imprime a frase enviada para o teste
+print(f"Mensagem enviada para análise: '{nova_mensagem_teste[0]}'")
+
+# Imprime o resultado da classificação em letras maiúsculas para facilitar a leitura
+print(f"Sentimento Previsto pelo Modelo: {predicao_resultado[0].upper()}")

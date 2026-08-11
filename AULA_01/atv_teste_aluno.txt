@@ -1,0 +1,64 @@
+Instrução:
+
+Copie o esqueleto de código abaixo para um notebook no seu Google Colab.
+
+O objetivo é expandir o dataset de treinamento para tratar cenários de Intenções de Atendimento em um Chatbot (ex: Dúvida de Pagamento, Suporte Técnico e Cancelamento).
+
+Você deve preencher os trechos sinalizados com TODO para concluir o exercício.
+
+# EXERCÍCIO AULA 01 - CLASSIFICADOR DE INTENÇÕES PARA CHATBOT
+# Aluno: [SEU NOME AQUI]
+# Repositório GitHub: [SEU LINK AQUI]
+
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB
+
+# 1. EXPANDA O DATASET: Adicione pelo menos mais 2 frases para cada intenção (Total minimo: 9 frases)
+mensagens_intencao = [
+    "Quero a segunda via do meu boleto",
+    "Como faço para pagar a fatura?",
+    "Minha internet está caindo muito",
+    "O sinal da TV não está funcionando",
+    "Quero cancelar meu plano imediatamente",
+    "Desejo encerrar minha conta",
+    # TODO: Adicione aqui frase de pagamento 1
+    # TODO: Adicione aqui frase de suporte técnico 1
+    # TODO: Adicione aqui frase de cancelamento 1
+]
+
+rotulos_intencao = [
+    "financeiro",
+    "financeiro",
+    "suporte_tecnico",
+    "suporte_tecnico",
+    "cancelamento",
+    "cancelamento",
+    # TODO: Adicione aqui o rótulo da frase de pagamento 1
+    # TODO: Adicione aqui o rótulo da frase de suporte técnico 1
+    # TODO: Adicione aqui o rótulo da frase de cancelamento 1
+]
+
+# 2. VETORIZAÇÃO DE TEXTO
+# TODO: Instancie o CountVectorizer na variável 'vectorizer_intencao'
+
+# TODO: Aplique o fit_transform nas mensagens_intencao e armazene em 'X_intencao'
+
+
+# 3. TREINAMENTO DO MODELO
+# TODO: Instancie o MultinomialNB na variável 'modelo_intencao'
+
+# TODO: Execute o treino do modelo usando o fit(X_intencao, rotulos_intencao)
+
+
+# 4. TESTE DE INFERÊNCIA
+# Teste com uma frase inédita digitada por você
+mensagem_usuario = ["Não recebi minha fatura deste mês"]
+
+# TODO: Transforma a mensagem_usuario usando o vetorizador instanciado (use o método transform)
+# X_usuario = ...
+
+# TODO: Faça a predição da intenção usando o método predict do modelo
+# predicao = ...
+
+# print(f"Frase do Usuário: {mensagem_usuario[0]}")
+# print(f"Intenção Identificada: {predicao[0]}")

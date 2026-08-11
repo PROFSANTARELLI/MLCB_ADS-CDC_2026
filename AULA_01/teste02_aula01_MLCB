@@ -1,0 +1,77 @@
+# ==============================================================================
+# BLOCO 1: BASE DE DADOS DE SEGURANÇA (FRASES DE SPAM E MENSAGENS VÁLIDAS)
+# ==============================================================================
+
+# Criação da lista de textos contendo exemplos de mensagens reais e spams
+mensagens_seguranca = [
+    "Olá, gostaria de saber o horário de funcionamento",
+    "GANHE DINHEIRO RÁPIDO CLIQUE AQUI NO LINK",
+    "Como faço para alterar minha senha do cadastro?",
+    "PROMOÇÃO IMPERDÍVEL COMPRE CRIPTO COM 90% DE DESCONTO",
+    "Preciso falar com o suporte sobre minha fatura",
+    "CLIQUE AQUI PARA GANHAR UM IPHONE GRÁTIS AGORA",
+    "Não perca esta oferta"
+]
+
+# Rótulos das mensagens: 'ham' para mensagens legítimas e 'spam' para propagandas
+rotulos_seguranca = [
+    "ham",
+    "spam",
+    "ham",
+    "spam",
+    "ham",
+    "spam",
+    "spam"
+]
+
+# Imprime o total de exemplos carregados na memória
+print(f"Total de exemplos carregados no treino: {len(mensagens_seguranca)}")
+
+# ==============================================================================
+# BLOCO 2: VETORIZAÇÃO E TREINAMENTO DO MODELO
+# ==============================================================================
+
+# Importa as ferramentas de vetorização e classificação do Scikit-Learn
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB
+
+# Instancia o vetorizador convertendo todo texto para minúsculo
+vetorizador_spam = CountVectorizer(lowercase=True)
+
+# Transforma as frases de treino em uma matriz numérica de frequência de palavras
+X_spam = vetorizador_spam.fit_transform(mensagens_seguranca)
+
+# Instancia e treina o algoritmo Naive Bayes
+modelo_spam = MultinomialNB()
+modelo_spam.fit(X_spam, rotulos_seguranca)
+
+# Confirmação do treinamento concluído
+print("Modelo de detecção de Spam treinado com sucesso!\n")
+
+# ==============================================================================
+# BLOCO 3: ENTRADA MANUAL DE DADOS E PREDIÇÃO
+# ==============================================================================
+
+# Captura o texto digitado manualmente pelo usuário no Colab
+texto_digitado = input("Digite uma mensagem para testar o filtro do bot: ")
+
+# Converte o texto digitado em uma lista de uma posição para ser processado pelo vetorizador
+mensagem_usuario = [texto_digitado]
+
+# Transforma a mensagem digitada usando o vocabulário aprendido no treino (.transform)
+X_teste = vetorizador_spam.transform(mensagem_usuario)
+
+# Realiza a inferência (predição) usando o modelo treinado
+resultado = modelo_spam.predict(X_teste)[0]
+
+# Exibe o diagnóstico detalhado na tela
+print("\n" + "="*50)
+print(f"Mensagem Recebida: '{texto_digitado}'")
+print(f"Classificação do Modelo: {resultado.upper()}")
+
+# Regra de decisão do filtro do chatbot
+if resultado == "spam":
+    print("Ação do Bot: [BLOQUEADO] Mensagem descartada por conteúdo suspeito.")
+else:
+    print("Ação do Bot: [APROVADO] Mensagem enviada para o fluxo de atendimento.")
+print("="*50)

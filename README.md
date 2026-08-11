@@ -1,8 +1,10 @@
 # MLCB_ADS-CDC_2026
 
-Repositório Oficial da Disciplina de Machine Learning e Chatbots do curso de Análise e Desenvolvimento de Softwares 4º e Ciências da Computação 5º.
+Repositório Oficial da Disciplina de Machine Learning e Chatbots
 
-2º Semestre 2026
+CursoS de Análise e Desenvolvimento de Softwares 4º SEMESTRE e Ciências da Computação 5º SEMESTRE.
+
+Período: 2º Semestre 2026
 
 Detalhes:
 

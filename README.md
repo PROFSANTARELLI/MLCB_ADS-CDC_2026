@@ -8,7 +8,7 @@ Período: 2º Semestre 2026
 
 Detalhes:
 
-Laboratório
+Laboratório 17
 
 Terças feira
 

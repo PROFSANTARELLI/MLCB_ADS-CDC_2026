@@ -1,0 +1,45 @@
+INICIAMOS NESTA AULA OFICIALMENTE AC-1
+Datas: 18/08, 25/08, 01/09 - Cada data equivale a pontuação de 0 à 0,25 pelas construções e entregas
+
+Para iniciar é necessário obrigatoriamente que você tenha:
+- Formado dupla ou trio para construção e entrega dos laboratórios (atividades no formato laboratório técnico de análises).
+- Criado repositório oficial da dupla/trio e enviado a informação via formulário ou, senão, via email (flavio.santarelli@pro.fecaf.com.br).
+- Ler atentamento os passos do roteiro abaixo.
+
+
+PASSO 1: Compreensão e Execução
+1 - Acompanhar a explicação e o código exemplo que será desenvolvido pelo professor no início da aula
+2 - Copiar para o seu repositório o arquivo: lab01_aula02_MLCB.py
+3 - Após explicação, rodar o código na sua IDE (sugiro o Google Colab) e salvar o arquivo com extensão IPYNB (exemplo: lab01_aula02.ipynb)
+no diretório AULA_02 do SEU respositório oficial
+4 - Criar um arquivo chamado "resultados_aula02.md" e coletar os resultados desta execução.
+5 - Após os resultados, insira as considerações da dupla/trio sobre a compreensão dos resultados obtidos.
+
+
+PASSO 2: Execução código pronto
+1 - Copiar para o seu repositório o arquivo: lab02_aula02_MLCB.py
+2 - Leia com atenção a proposta da atividade 
+3 - Rode o código na sua IDE e salvar o arquivo com extensão IPYNB (exemplo: lab02_aula02.ipynb) no diretório AULA_02 do seu respositório
+4 - Colete os resultados desta execução.
+5 - Coloque no arquivo "resultados_aula02.md" na sequência do resultado anterior.
+6 - Construa e insira as considerações da dupla/trio sobre a compreensão dos resultados obtidos.
+
+
+PASSO 3: Execução código semi-pronto
+1 - Copiar para o seu repositório o arquivo: lab03_aula02_MLCB.py
+2 - Leia com atenção a proposta da atividade 
+3 - Rode o código na sua IDE e salvar o arquivo com extensão IPYNB (exemplo: lab03_aula02.ipynb) no diretório AULA_02 do seu respositório
+4 - Colete os resultados desta execução.
+5 - Coloque no arquivo "resultados_aula02.md" na sequência do resultado anterior.
+6 - Construa e insira as considerações da dupla/trio sobre a compreensão dos resultados obtidos.
+
+
+PASSO 4: Execução do zero
+1 - Copiar para o seu repositório o arquivo: lab04_aula02_MLCB.txt
+2 - Leia com atenção a proposta da atividade 
+3 - Rode o código na sua IDE e salvar o arquivo com extensão IPYNB (exemplo: lab04_aula02.ipynb) no diretório AULA_02 do seu respositório
+4 - Colete os resultados desta execução.
+5 - Coloque no arquivo "resultados_aula02.md" na sequência do resultado anterior.
+6 - Construa e insira as considerações da dupla/trio sobre a compreensão dos resultados obtidos.
+
+As entregas completas e corretas desta primeira ETAPA AC-1 confere às duplas/trio o valor máximo de 0,25 dos 0,75 possíveis para esta primeira AC.

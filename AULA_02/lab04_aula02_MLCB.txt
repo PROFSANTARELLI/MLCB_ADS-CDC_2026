@@ -1,0 +1,21 @@
+================================================================================
+LAB 04 - AULA 02 (MLCB): DESAFIO NLU PARA AGÊNCIA DE VIAGENS (DO ZERO)
+================================================================================
+
+[PROPOSTA]
+Você foi contratado para criar o protótipo do motor de Natural Language Understanding (NLU)
+de um Chatbot para uma Agência de Viagens.
+
+[REQUISITOS OBRIGATÓRIOS]
+1. Criar um dataset próprio em um DataFrame Pandas com no mínimo 12 frases distribuídas em
+   pelo menos 3 intenções distintas (ex: 'comprar_passagem', 'cancelar_reserva', 'falar_atendente').
+2. Realizar a divisão em conjuntos de Treino e Teste usando `train_test_split`.
+3. Escolher um vetorizador de texto (CountVectorizer ou TfidfVectorizer).
+4. Escolher um algoritmo de classificação (LogisticRegression, MultinomialNB ou DecisionTreeClassifier).
+5. Treinar o modelo e realizar predições com no mínimo 3 frases INÉDITAS (que não estavam no treino).
+6. Exibir as intenções previstas no console.
+
+[ENTREGA]
+Construa o código em um notebook (.ipynb), execute, salve no repositório e registre os resultados
+e a justificativa técnica no arquivo 'resultados_aula02.md'.
+================================================================================

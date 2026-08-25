@@ -1,0 +1,37 @@
+AULA 03 - AC-1 parte 2 - Valor: de 0 à 0,25
+
+(Datas AC-1: 18/08, 25/08, 01/09 - Cada data equivale a pontuação de 0 à 0,25 pelas construções e entregas)
+
+Para iniciar é necessário obrigatoriamente que você tenha:
+- Desenvolvido completamente a AC-1 parte 1.
+- Ler atentamento os passos do roteiro abaixo.
+
+
+PASSO 1: Compreensão e Execução
+1 - Acompanhar a explicação e o código exemplo que será desenvolvido pelo professor no início da aula
+2 - Acessar no repositório do professor: https://github.com/PROFSANTARELLI/MLCB_ADS4A_2026/edit/main/AULA_03 o arquivo: lab01_aula03_MLCB.py
+3 - Após explicação, rode o código na sua IDE (sugiro o Google Colab) e salvae o arquivo com extensão IPYNB (exemplo: lab01_aula03.ipynb)
+no diretório AULA_03 do SEU respositório oficial
+4 - Criar um arquivo chamado "resultados_aula03.md" e coletar os resultados desta execução.
+5 - Após os resultados, insira as respostas das perguntas no final do código sobre a compreensão dos resultados obtidos.
+
+
+PASSO 2: Execução código pronto
+1 - Acesse o arquivo: lab02_aula03_MLCB.py na AULA_03 e copie o código deste arquivo
+2 - Leia com atenção a proposta da atividade 
+3 - Rode o código na sua IDE e salvar o arquivo com extensão IPYNB (exemplo: lab02_aula03.ipynb) no diretório AULA_03 do seu respositório
+4 - Colete os resultados desta execução.
+5 - Coloque no arquivo "resultados_aula03.md" na sequência do resultado anterior.
+6 - Após os resultados, insira as respostas das perguntas no final do código sobre a compreensão dos resultados obtidos.
+
+
+PASSO 3: Execução código semi-pronto
+1 - Acesse o arquivo: lab03_aula03_MLCB.py na AULA_03 e copie o código deste arquivo
+2 - Leia com atenção a proposta da atividade 
+3 - Rode o código na sua IDE e salvar o arquivo com extensão IPYNB (exemplo: lab03_aula03.ipynb) no diretório AULA_03 do seu respositório
+4 - Colete os resultados desta execução.
+5 - Coloque no arquivo "resultados_aula03.md" na sequência do resultado anterior.
+6 - Após os resultados, insira as respostas das perguntas no final do código sobre a compreensão dos resultados obtidos.
+
+
+As entregas completas e corretas desta segunda ETAPA AC-1 confere às duplas/trio o valor máximo de ATÉ 0,25 ponto.

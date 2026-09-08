@@ -1,6 +1,474 @@
-AC-2 PARTE 1 - VALOR DE 0 À 0,25 PONTO
+AC-2 — Parte 1 - Construção de um Motor NLU para Chatbot
+
+Valor total: 0,25 ponto
 
 ENTREGÁVEIS:
 - Arquivo único .ipynb com todas as execuções
 - Arquivo de resposta: resultados_aula05.md
 
+Contexto geral
+
+A MóveisDesign S.A. possui um canal de atendimento automatizado. O chatbot precisa identificar a intenção das mensagens dos clientes para encaminhá-las ao fluxo correto.
+
+O desafioserá construir, de forma incremental, um protótipo de NLU capaz de:
+
+1 - receber uma mensagem em linguagem natural;
+2 - normalizar o texto;
+3 - transformá-lo em uma representação vetorial;
+4 - identificar a intenção;
+5 - estimar a confiança da classificação;
+6 - acionar um fallback quando a confiança for insuficiente;
+7 - comparar diferentes algoritmos;
+8 - analisar tecnicamente os resultados.
+
+Exercício 1 — Construção da Esteira de Pré-processamento
+
+Técnica: Regex + Stop Words + Lemmatization.
+
+Desafio: O SAC recebe mensagens completamente despadronizadas:
+
+"OI!!! Gostaria de SABER se vocês estão DEVOLVENDO os valores das mesas compradas!!!"
+
+Você deverá construir uma função capaz de transformar uma mensagem bruta em uma representação textual normalizada.
+
+Você é responsável pelo módulo de pré-processamento do NLU. Desenvolva uma função reutilizável que receba qualquer mensagem do SAC e devolva o texto normalizado e lematizado.
+
+Requisitos
+
+A função deverá:
+
+converter para minúsculas;
+remover números;
+remover pontuação;
+remover caracteres desnecessários;
+tokenizar;
+remover stop words;
+realizar lemmatization;
+remover tokens muito curtos;
+retornar uma string pronta para o próximo estágio do pipeline.
+Exemplo esperado
+
+Entrada:
+
+"Olá!!! EU gostaria de saber se vocês estão DEVOLVENDO
+as mesas que foram compradas ontem."
+
+Saída aproximada:
+
+"olá gostaria saber devolver mesa comprar ontem"
+
+A saída exata poderá variar conforme o modelo linguístico utilizado.
+
+O aluno deverá ir além
+
+Além da função principal, deverá criar uma pequena função de diagnóstico:
+
+def analisar_preprocessamento(texto):
+    ...
+
+Ela deverá apresentar:
+
+Texto original:
+...
+
+Texto normalizado:
+...
+
+Quantidade de caracteres:
+...
+
+Quantidade de tokens antes:
+...
+
+Quantidade de tokens depois:
+...
+
+Tokens removidos:
+...
+
+Tokens finais:
+...
+
+Isso transforma o exercício em uma pequena ferramenta de análise.
+
+Critério de conclusão
+
+O exercício estará concluído quando o aluno conseguir executar:
+
+analisar_preprocessamento(
+    "MEU sofá!!! chegou quebrado e quero DEVOLVER!!!"
+)
+
+e visualizar claramente o que aconteceu em cada etapa.
+
+Exercício 2 — Construção da Representação Semântica
+
+Peso: 0,05 ponto
+
+Técnica
+
+Embeddings + Mean Pooling.
+
+Aqui eu faria uma mudança importante no seu exercício original.
+
+Você está utilizando:
+
+glove-wiki-gigaword-50
+
+Isso é GloVe treinado em inglês. Portanto, não é adequado apresentar isso aos alunos como FastText para um chatbot em português.
+
+Para o laboratório, recomendo utilizar um modelo de embeddings em português previamente disponibilizado aos alunos ou utilizar outro modelo multilíngue adequado.
+
+O conceito que importa é:
+
+Mensagem
+    ↓
+Palavras
+    ↓
+Vetores
+    ↓
+Mean Pooling
+    ↓
+Vetor da frase
+Desafio
+
+O classificador não entende diretamente uma frase. Sua missão é construir um módulo capaz de transformar uma mensagem inteira em um vetor numérico que represente seu significado.
+
+Requisitos
+
+O aluno deverá criar:
+
+def obter_vetor_frase(frase, modelo):
+    ...
+
+A função deverá:
+
+receber uma frase;
+separar os tokens;
+localizar os embeddings;
+ignorar palavras sem representação;
+calcular o Mean Pooling;
+retornar um vetor de dimensão fixa.
+Exemplo conceitual
+"quero cancelar pedido"
+
+        ↓
+
+"quero"     → [0.12, 0.45, ...]
+"cancelar"  → [0.78, 0.21, ...]
+"pedido"    → [0.63, 0.51, ...]
+
+        ↓ Mean Pooling
+
+[0.51, 0.39, 0.72, ...]
+O exercício fica mais interessante se o aluno tiver que construir uma análise
+
+Depois de gerar os vetores, deverá produzir:
+
+Quantidade de mensagens:
+32
+
+Dimensão dos embeddings:
+50
+
+Formato da matriz:
+(32, 50)
+
+Mensagens convertidas:
+32/32
+
+E deverá testar pelo menos três frases:
+
+testes = [
+    "quero devolver meu sofá",
+    "onde está minha entrega",
+    "preciso comprar uma mesa"
+]
+Desafio adicional
+
+O aluno deverá verificar o comportamento de:
+
+"quero devolver meu sofá"
+
+e
+
+"eu gostaria de fazer a devolução do meu sofá"
+
+e discutir:
+
+As duas frases possuem palavras diferentes. O vetor produzido também é completamente diferente ou existe alguma proximidade semântica?
+
+Aqui você começa a conectar diretamente o conceito de embedding com o problema real de NLU.
+
+Exercício 3 — Construção do Classificador com Fallback
+
+Peso: 0,10 ponto
+
+Este deveria ser o principal exercício da AC-2.
+
+Eu mudaria bastante o seu atual.
+
+O aluno agora recebe a missão:
+
+Construir o cérebro de decisão do chatbot.
+
+Ele deverá pegar os vetores produzidos no Exercício 2 e construir um classificador de intenções utilizando Regressão Logística.
+
+Pipeline esperado
+CSV
+ │
+ ▼
+mensagem ───────────────► X
+intenção ───────────────► y
+ │
+ ▼
+Train / Test Split
+ │
+ ├──────── 80% Treino
+ │
+ └──────── 20% Teste
+          │
+          ▼
+       Embeddings
+          │
+          ▼
+   Regressão Logística
+          │
+          ▼
+      predict_proba()
+          │
+          ▼
+       Threshold
+       /        \
+      /          \
+ ≥ 50%           < 50%
+   │                │
+   ▼                ▼
+Intenção         FALLBACK
+Etapa 1 — Separação dos dados
+
+O aluno deverá obrigatoriamente separar:
+
+X_train
+X_test
+y_train
+y_test
+
+Utilizando:
+
+train_test_split(
+    X,
+    y,
+    test_size=0.20,
+    random_state=42,
+    stratify=y
+)
+
+Aqui você reforça um conceito importante:
+
+O modelo não pode ser avaliado utilizando os mesmos exemplos utilizados para treiná-lo.
+
+Etapa 2 — Treinamento
+
+O aluno deverá construir:
+
+modelo = LogisticRegression(
+    max_iter=1000
+)
+
+modelo.fit(X_train_vec, y_train)
+
+Mas não deve parar aqui.
+
+Etapa 3 — Avaliação
+
+O sistema deverá apresentar:
+
+Acurácia:
+Precisão:
+Recall:
+F1-Score:
+
+Utilizando:
+
+classification_report(
+    y_test,
+    y_pred
+)
+
+Isso já aproxima o exercício de um projeto real de Machine Learning.
+
+Etapa 4 — Construção do mecanismo de fallback
+
+Aqui está o ponto mais importante.
+
+O aluno deverá criar:
+
+def classificar_mensagem(
+    mensagem,
+    modelo,
+    modelo_embedding,
+    limiar=0.50
+):
+    ...
+
+A função deverá retornar algo como:
+
+Mensagem:
+"Quero saber onde está meu sofá"
+
+Intenção:
+logistica_entregas
+
+Confiança:
+87.42%
+
+Decisão:
+RESPOSTA AUTOMÁTICA
+
+E para:
+
+"Quero saber a previsão do tempo para amanhã"
+
+algo como:
+
+Mensagem:
+"Quero saber a previsão do tempo para amanhã"
+
+Intenção:
+FALLBACK_HUMANO
+
+Confiança:
+42.18%
+
+Decisão:
+ENCAMINHAR PARA ATENDIMENTO
+Mas existe um detalhe pedagógico importante
+
+Eu pediria aos alunos para testarem pelo menos:
+
+uma frase muito próxima do treinamento;
+uma frase diferente, mas com a mesma intenção;
+uma frase curta;
+uma frase com erro de digitação;
+uma frase completamente fora do domínio.
+
+Por exemplo:
+
+testes = [
+    "quero devolver meu sofá",
+    "como faço para realizar a devolução?",
+    "cadê meu pedido?",
+    "meu pedido nao chego",
+    "qual é a previsão do tempo?"
+]
+
+E montar uma tabela:
+
+Mensagem	Intenção	Confiança	Decisão
+quero devolver meu sofá	trocas_devolucoes	91%	Automático
+como faço para realizar a devolução?	trocas_devolucoes	84%	Automático
+cadê meu pedido?	logistica_entregas	78%	Automático
+meu pedido nao chego	logistica_entregas	61%	Automático
+qual é a previsão do tempo?	fallback	43%	Humano
+
+Isso é muito mais próximo do que você quer que eles construam.
+
+Exercício 4 — Laboratório Comparativo: Regressão Logística × KNN
+
+Peso: 0,05 ponto
+
+Eu também mudaria o foco.
+
+Não seria simplesmente:
+
+“Calcule a acurácia dos dois.”
+
+Seria:
+
+Você é o desenvolvedor responsável por escolher o algoritmo que será utilizado no motor NLU. Compare duas abordagens e apresente uma recomendação técnica.
+
+Modelos
+Modelo 1
+Regressão Logística
+        ↓
+Fronteira de decisão
+
+Modelo 2
+KNN
+        ↓
+Distância entre vetores
+Treinamento
+
+O aluno deverá construir:
+
+modelo_logistico = LogisticRegression(
+    max_iter=1000
+)
+
+modelo_knn = KNeighborsClassifier(
+    n_neighbors=3
+)
+
+E treinar ambos somente com:
+
+X_train_vec
+y_train
+Avaliação
+
+Aqui está uma correção importante do seu código atual.
+
+Não utilizar:
+
+modelo.predict(X_vetores)
+
+porque isso avalia os próprios dados utilizados no treinamento.
+
+Utilizar:
+
+y_pred_logistico = modelo_logistico.predict(X_test_vec)
+
+y_pred_knn = modelo_knn.predict(X_test_vec)
+
+Depois:
+
+accuracy_score(y_test, y_pred_logistico)
+accuracy_score(y_test, y_pred_knn)
+
+Mas eu acrescentaria:
+
+precision_score
+recall_score
+f1_score
+
+com average="weighted".
+
+Entrega final do Exercício 4
+
+O aluno deverá produzir uma tabela:
+
+Modelo	Accuracy	Precision	Recall	F1
+Regressão Logística	XX%	XX%	XX%	XX%
+KNN	XX%	XX%	XX%	XX%
+
+E responder:
+
+Questão 1
+
+Qual modelo apresentou melhor desempenho?
+
+Questão 2
+
+Por que os resultados podem ser diferentes mesmo utilizando os mesmos embeddings?
+
+Questão 3
+
+O KNN utiliza distância. Por que a qualidade dos embeddings é particularmente importante para esse algoritmo?
+
+Questão 4
+
+Se o sistema tivesse 100 mil mensagens e centenas de intenções, você escolheria KNN? Justifique.
+
+Questão 5
+
+Qual modelo você escolheria para colocar em produção neste cenário?

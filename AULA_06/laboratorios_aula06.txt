@@ -1,0 +1,36 @@
+LAB 01: Troca do Algoritmo de Classificação (ML)
+O modelo atual utiliza a Regressão Logística para classificar as intenções.
+O seu desafio nesta atividade é substituir o classificador por uma Árvore de Decisão (Decision Tree), mantendo o restando do pipeline de pré-processamento e vetorização intacto.
+
+1 - Importe o Decision Tree do módulo sklearn.ensemble.
+2 - Substitua a instância LogisticRegression pelo novo algoritmo.
+3 - Treine o modelo e valide se a interface do Gradio continua prevendo as intenções corretamente.
+
+Entregável:
+- o código completo salvo no seu repositório com o nome: lab01_aula.py ou .ipynb
+- output do resultado no arquivo: resultados_06.md
+
+
+LAB 02: Ajuste de Governança e Regra de Fallback Dinâmica
+A equipe de operações da imobiliária identificou que o modelo estava sendo "tolerante demais" com respostas incertas.
+O desafio do seu grupo é implementar duas regras de negócio no BLOCO 4:
+
+1 - Elevar o limiar de confiança mínimo (LIMIAR_CONFIANCA) de 50% (0.50) para 65% (0.65).
+2 - Atualizar a mensagem visual de status para explicitar ao operador a porcentagem do corte aplicado.
+
+Entregável:
+- o código completo salvo no seu repositório com o nome: lab02_aula.py ou .ipynb
+- output do resultado no arquivo: resultados_06.md
+
+
+LAB 03: Expansão de Classe (Data Drift & Novas Intenções)
+A imobiliária começou a receber muitas mensagens relativas a distrato/cancelamento de contrato.
+O seu objetivo é expandir o sistema NLU:
+
+1 - Adicionar uma quinta classe de intenção chamada cancelar_contrato com pelo menos 5 frases de treino no dados_imobiliaria (BLOCO 1).
+2 - Adicionar a respectiva resposta de negócio no dicionário RESPOSTAS_PADRAO (BLOCO 3).
+3 - Re-executar o treinamento e testar a nova classe na interface do Gradio.
+
+Entregável:
+- o código completo salvo no seu repositório com o nome: lab03_aula.py ou .ipynb
+- output do resultado no arquivo: resultados_06.md

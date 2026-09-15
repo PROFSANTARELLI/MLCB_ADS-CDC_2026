@@ -1,1 +1,9 @@
+AULA 06 - ATIVIDADE AC-2 PARTE 2 - VALOR DE 0,25 PONTO
 
+ETAPAS DE ENTREGA:
+1 - Crie o diretório AULA_06 e dentro dele crie o arquivo resultados_aula06.md para que seja inserido todos os outputs dos laboratórios de hoje
+2 - Copie e execute o código demo dentro do arquivo aula06_mlcb.py e faça 4 testes de inserção de frases e coloque os outputs no arquivo resultados_aula06.md
+3 - Compreenda e execute o LAB01. Coloque os resultados no arquivo resultados_aula06.md
+4 - Compreenda e execute o LAB02. Coloque os resultados no arquivo resultados_aula06.md
+5 - Compreenda e execute o LAB03. Coloque os resultados no arquivo resultados_aula06.md
+6 - Compreenda e execute o LAB04. Coloque os resultados no arquivo resultados_aula06.md

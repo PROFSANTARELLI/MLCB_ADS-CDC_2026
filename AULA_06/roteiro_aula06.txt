@@ -6,4 +6,4 @@ ETAPAS DE ENTREGA:
 3 - Compreenda e execute o LAB01. Coloque os resultados no arquivo resultados_aula06.md
 4 - Compreenda e execute o LAB02. Coloque os resultados no arquivo resultados_aula06.md
 5 - Compreenda e execute o LAB03. Coloque os resultados no arquivo resultados_aula06.md
-6 - Compreenda e execute o LAB04. Coloque os resultados no arquivo resultados_aula06.md
+

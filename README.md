@@ -1,5 +1,7 @@
 # MLCB_ADS-CDC_2026 - https://github.com/PROFSANTARELLI/MLCB_ADS-CDC_2026
 
+E-MAIL do professor: flavio.santarelli@pro.fecaf.com.br
+
 Repositório Oficial da Disciplina de Machine Learning e Chatbots
 
 CursoS de Análise e Desenvolvimento de Softwares 4º SEMESTRE e Ciências da Computação 5º SEMESTRE.

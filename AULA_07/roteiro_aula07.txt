@@ -6,5 +6,6 @@ ETAPAS DE ENTREGA:
 3 - Coloque todos os resultados no arquivo resultados_aula07.md
 
 Ao finalizar, mande email para o professor informando que a dupla/trio terminou e o link do repositório para eu conferir na hora.
+flavio.santarelli@pro.fecaf.com.br
 
 Assim que eu der o De Acordo, a dupla/trio estarão liberados.

@@ -1,0 +1,222 @@
+
+EXERCÍCIO 1: Regressão Logística (Chatbot Bancário)
+Foco do Modelo: Regressão Logística (LogisticRegression)
+Objetivo: Implementar o pipeline base completo com classificação probabilística e extração de valores monetários.
+
+# =====================================================================
+# LAB 1: NLU BANCÁRIO COM REGRESSÃO LOGÍSTICA
+# =====================================================================
+
+import re
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
+
+dados_treino = [
+?
+]
+
+stopwords = ?
+
+# 1. PRÉ-PROCESSAMENTO
+def pré_processar(texto):
+    texto_limpo = re.sub(r'[^\w\s]', '', texto.lower()).strip()
+    tokens = texto_limpo.split()
+    
+    # TODO 1.1: Filtre as stopwords da lista 'tokens' usando List Comprehension
+    tokens_filtrados = [ # TODO 1.1: Escreva sua list comprehension aqui
+    
+    return " ".join(tokens_filtrados)
+
+X_treino_limpo = [pré_processar(item[0]) for item in dados_treino]
+y_treino = [item[1] for item in dados_treino]
+
+# 2. VETORIZAÇÃO E TREINAMENTO
+vectorizer = TfidfVectorizer()
+
+# TODO 1.2: Aprenda o vocabulário e vetorize 'X_treino_limpo' em um único passo
+X_vetorizado = # TODO 1.2: Complete aqui
+
+modelo = LogisticRegression()
+modelo.fit(X_vetorizado, y_treino)
+
+# 3. EXTRAÇÃO DE ENTIDADE (REGEX)
+def extrair_valor_reais(texto_original):
+    match = re.search(r'(\d+)\s*reais', texto_original, re.IGNORECASE)
+    # TODO 1.3: Se houver match, converta o grupo 1 para float. Caso contrário, retorne None.
+    return # TODO 1.3: Complete aqui
+
+# 4. PIPELINE NLU
+def processar_nlu(mensagem_usuario, threshold=0.55):
+    texto_p = pré_processar(mensagem_usuario)
+    vetor_input = vectorizer.transform([texto_p])
+    
+    probas = modelo.predict_proba(vetor_input)[0]
+    
+    # TODO 1.4: Extraia a MAIOR probabilidade (max) e a intenção prevista (argmax em modelo.classes_)
+    maior_confianca = # TODO 1.4a
+    intencao_prevista = # TODO 1.4b
+    
+    # TODO 1.5: Se maior_confianca < threshold ou intencao == "fora_escopo", retorne FALLBACK.
+    # Caso contrário, retorne SUCESSO com a intenção, confiança e o valor extraído.
+    # TODO 1.5: Escreva a condicional if/else abaixo
+
+# --- TESTE 1 ---
+if __name__ == "__main__":
+    print(processar_nlu("???"))
+
+
+
+
+EXERCÍCIO 2: Naive Bayes (Filtro de Spam / Triagem)
+Foco do Modelo: Multinomial Naive Bayes (MultinomialNB)
+Objetivo: Implementar um modelo probabilístico rápido focado em contagem estatística de termos e extração de protocolo via Regex.
+
+# =====================================================================
+# LAB 2: TRIAGEM DE CHAMADOS COM NAIVE BAYES
+# =====================================================================
+
+import re
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.naive_bayes import MultinomialNB
+
+dados_treino = [
+    ("Urgente: o servidor caiu e a aplicacao esta fora", "incidente_critico"),
+    ("Erro grave no banco de dados e sistema parou", "incidente_critico"),
+    ("Como faco para alterar minha senha do e-mail", "duvida_suporte"),
+    ("Qual o procedimento para solicitar novo mouse", "duvida_suporte"),
+    ("Gostaria de saber o horario de funcionamento", "fora_escopo")
+]
+
+stopwords = ["o", "a", "e", "do", "da", "para", "de"]
+
+# 1. PRÉ-PROCESSAMENTO
+def pré_processar(texto):
+    texto_limpo = re.sub(r'[^\w\s]', '', texto.lower()).strip()
+    tokens = texto_limpo.split()
+    
+    # TODO 2.1: Filtre as stopwords mantendo os tokens válidos
+    tokens_filtrados = [ # TODO 2.1: Escreva sua list comprehension aqui
+    
+    return " ".join(tokens_filtrados)
+
+X_treino_limpo = [pré_processar(item[0]) for item in dados_treino]
+y_treino = [item[1] for item in dados_treino]
+
+# 2. VETORIZAÇÃO E TREINAMENTO (NAIVE BAYES)
+vectorizer = TfidfVectorizer()
+X_vetorizado = vectorizer.fit_transform(X_treino_limpo)
+
+# TODO 2.2: Instancie o modelo Naive Bayes (MultinomialNB)
+modelo_nb = # TODO 2.2: Complete aqui
+
+# TODO 2.3: Treine o modelo com X_vetorizado e y_treino
+# TODO 2.3: Chame o método fit() aqui
+
+# 3. EXTRAÇÃO DE ENTIDADE (CÓDIGO DE PROTOCOLO)
+def extrair_protocolo(texto):
+    # Procura um padrão de protocolo como 'INC-1234' ou 'INC1234'
+    match = re.search(r'INC-?\d{4}', texto, re.IGNORECASE)
+    # TODO 2.4: Retorne a string do protocolo encontrado (match.group(0)) em maiúsculas ou None
+    return # TODO 2.4: Complete aqui
+
+# 4. PIPELINE NLU
+def processar_triagem(mensagem_usuario, threshold=0.60):
+    texto_p = pré_processar(mensagem_usuario)
+    vetor_input = vectorizer.transform([texto_p])
+    
+    # Naive Bayes também possui .predict_proba()
+    probas = modelo_nb.predict_proba(vetor_input)[0]
+    
+    maior_confianca = max(probas)
+    intencao_prevista = modelo_nb.classes_[probas.argmax()]
+    
+    # TODO 2.5: Retorne dicionário de FALLBACK se maior_confianca < threshold
+    # Caso contrário, retorne SUCESSO com a intenção, confiança e o código do protocolo extraído
+    # TODO 2.5: Escreva a condicional if/else abaixo
+
+# --- TESTE 2 ---
+if __name__ == "__main__":
+    print(processar_triagem("Urgente: servidor caiu no protocolo INC-9982"))
+
+
+
+
+
+EXERCÍCIO 3: Árvore de Decisão (Chatbot de E-Commerce)
+Foco do Modelo: Árvores de Decisão (DecisionTreeClassifier)
+Objetivo: Construir uma solução baseada em regras de decisão ortogonais e extrair código de rastreamento no padrão de encomenda (BR123456789BR).
+
+# =====================================================================
+# LAB 3: CHATBOT DE E-COMMERCE COM DECISION TREE
+# =====================================================================
+
+import re
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.tree import DecisionTreeClassifier
+
+dados_treino = [
+    ("Onde esta meu pedido e qual o rastreio", "rastrear_pedido"),
+    ("Quero saber a localizacao da minha encomenda", "rastrear_pedido"),
+    ("Quero cancelar minha compra e pedir reembolso", "cancelar_compra"),
+    ("Preciso cancelar o pedido feito ontem", "cancelar_compra"),
+    ("Qual o horario de atendimento da loja fisica", "fora_escopo")
+]
+
+stopwords = ["o", "a", "meu", "minha", "e", "da", "do"]
+
+# 1. PRÉ-PROCESSAMENTO
+def pré_processar(texto):
+    texto_limpo = re.sub(r'[^\w\s]', '', texto.lower()).strip()
+    tokens = texto_limpo.split()
+    
+    # TODO 3.1: Filtre as stopwords da frase
+    tokens_filtrados = [ # TODO 3.1: Escreva sua list comprehension aqui
+    
+    return " ".join(tokens_filtrados)
+
+X_treino_limpo = [pré_processar(item[0]) for item in dados_treino]
+y_treino = [item[1] for item in dados_treino]
+
+# 2. VETORIZAÇÃO E TREINAMENTO (DECISION TREE)
+vectorizer = TfidfVectorizer()
+X_vetorizado = vectorizer.fit_transform(X_treino_limpo)
+
+# TODO 3.2: Instancie o modelo DecisionTreeClassifier
+modelo_tree = # TODO 3.2: Complete aqui
+
+# TODO 3.3: Treine o modelo com os dados vetorizados e os rótulos de treino
+# TODO 3.3: Escreva a linha do método fit() aqui
+
+# 3. EXTRAÇÃO DE ENTIDADE (CÓDIGO DE RASTREIO BR)
+def extrair_codigo_rastreio(texto):
+    # Procura códigos de rastreio como 'BR123456789'
+    match = re.search(r'BR\d{9}', texto, re.IGNORECASE)
+    # TODO 3.4: Se encontrar, retorne o texto correspondente em maiúsculas (match.group(0).upper()). Se não, None.
+    return # TODO 3.4: Complete aqui
+
+# 4. PIPELINE NLU
+def processar_ecommerce(mensagem_usuario, threshold=0.50):
+    texto_p = pré_processar(mensagem_usuario)
+    vetor_input = vectorizer.transform([texto_p])
+    
+    # DecisionTree também calcula probabilidades com base na pureza das folhas
+    probas = modelo_tree.predict_proba(vetor_input)[0]
+    
+    maior_confianca = max(probas)
+    intencao_prevista = modelo_tree.classes_[probas.argmax()]
+    
+    # TODO 3.5: Crie a verificação de segurança:
+    # Se maior_confianca < threshold ou intencao == "fora_escopo":
+    #     retorne o dicionário de FALLBACK
+    # Senão:
+    #     retorne o dicionário de SUCESSO com a intenção, confiança e código de rastreio extraído
+    # TODO 3.5: Escreva a condicional if/else abaixo
+
+# --- TESTE 3 ---
+if __name__ == "__main__":
+    print(processar_ecommerce("Quero rastrear o pedido BR987654321"))
+
+
+
+
+

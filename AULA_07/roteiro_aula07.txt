@@ -1,1 +1,7 @@
+AULA 07 - ATIVIDADE AC-2 PARTE FINAL - VALOR DE 0,25 PONTO
+
+ETAPAS DE ENTREGA:
+1 - Crie o diretório AULA_07 e dentro dele crie o arquivo resultados_aula07.md para que seja inserido todos os outputs dos laboratórios de hoje
+2 - Compreenda e execute o que está sendo pedido no arquivo laboratorios_aula07.txt. 
+3 - Coloque todos os resultados no arquivo resultados_aula07.md
 

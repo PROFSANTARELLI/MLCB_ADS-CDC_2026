@@ -1,25 +1,13 @@
 ROTEIRO AULA 08 - 06/10/2026
 
 Bloco 1	- Teoria: Aprendizado Não Supervisionado & Clustering no contexto de NLU
+
 Bloco 2	- Apresentação e Kickoff do PROJETO MESAFARTAI - Logística e Inteligência Assistiva no Combate à Fome
+
 Bloco 3 - PASSO A PASSO - ETAPA DE INICIALIZAÇÃO DO PROJETO MESAFARTA
+- Formar grupos de 3 a 5 alunos (pode ser o mesmo do projeto tech)
+- Baixar no repositório da disciplina o arquivo oficial: guia_projeto_mesafartai_aula06102026.doc
+- Ler e seguir rigorosamente todas as instruções contidas no PDF para completar a etapa da aula de hoje.
 
-1. Formar grupos de 3 a 5 alunos (pode ser o mesmo grupo do Projeto Tech).
+ATENÇÃO: Só haverá validade e nota se os alunos fizerem em sala de aula. Não serão aceitas "entregas online" e nem alunos realizarem atividade de casa.
 
-2. Criar um novo repositório no GitHub com o nome exatamente: PROJETO-MESAFARTAI
-
-3. Criar na raiz do repositório um arquivo README.md descrevendo:
-   - Descrição objetiva da ideia do projeto.
-   - Nome completo e RA de TODOS os integrantes do grupo.
-
-4. Adicionar TODOS os integrantes como colaboradores do repositório, além de adicionar o PROFESSOR.
-
-5. Criar um diretório/pasta chamado /docs e, dentro dele, criar um arquivo chamado regras.txt.
-
-6. Baixar no repositório da disciplina o arquivo oficial: guia_projeto_mesafartai_aula06102026.pdf
-
-7. Ler e seguir rigorosamente todas as instruções contidas no PDF para completar a etapa da aula de hoje.
-
-8. Enviar um e-mail para o professor contendo:
-   - Assunto: [MESAFARTAI] - Turma "ADS ou CDC" MLCB - terça feira
-   - Corpo do E-mail: Nome + RA dos integrantes e o LINK do repositório GitHub.

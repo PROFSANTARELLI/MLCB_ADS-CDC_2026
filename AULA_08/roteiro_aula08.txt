@@ -3,6 +3,7 @@ ROTEIRO AULA 08 - 06/10/2026
 Bloco 1	- Teoria: Aprendizado Não Supervisionado & Clustering no contexto de NLU
 
 Bloco 2	- Apresentação e Kickoff do PROJETO MESAFARTAI - Logística e Inteligência Assistiva no Combate à Fome
+https://docs.google.com/presentation/d/1VvsyQ1FUro08zhjESKDGacFHHoyJL2mnDdOuJu56tWw/edit?usp=sharing
 
 Bloco 3 - PASSO A PASSO - ETAPA DE INICIALIZAÇÃO DO PROJETO MESAFARTA
 - Formar grupos de 3 a 5 alunos (pode ser o mesmo do projeto tech)

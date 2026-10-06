@@ -5,7 +5,7 @@ Bloco 1	- Teoria: Aprendizado Não Supervisionado & Clustering no contexto de NL
 Bloco 2	- Apresentação e Kickoff do PROJETO MESAFARTAI - Logística e Inteligência Assistiva no Combate à Fome
 https://docs.google.com/presentation/d/1VvsyQ1FUro08zhjESKDGacFHHoyJL2mnDdOuJu56tWw/edit?usp=sharing
 
-Bloco 3 - PASSO A PASSO - ETAPA DE INICIALIZAÇÃO DO PROJETO MESAFARTA
+Bloco 3 - PASSO A PASSO - ETAPA DE INICIALIZAÇÃO DO PROJETO MESAFARTAI
 - Formar grupos de 3 a 5 alunos (pode ser o mesmo do projeto tech)
 - Baixar no repositório da disciplina o arquivo oficial: guia_projeto_mesafartai_aula06102026.doc
 - Ler e seguir rigorosamente todas as instruções contidas no PDF para completar a etapa da aula de hoje.

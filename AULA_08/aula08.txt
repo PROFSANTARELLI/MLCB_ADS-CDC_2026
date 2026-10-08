@@ -36,11 +36,12 @@ Queremos descobrir se existem grupos de clientes com características semelhante
 
 # pip install scikit-learn matplotlib
 
+import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 
 
-# Dados: [idade, renda em milhares]
+# Dados: [idade, renda em milhares R$]
 dados = [
     [20, 2],
     [22, 2.5],

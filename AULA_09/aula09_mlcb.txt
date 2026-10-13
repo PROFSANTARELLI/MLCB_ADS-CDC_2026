@@ -4,5 +4,64 @@ Roteiro Aula 09:
 2 - Revisão da implementação do projeto da AC3/AC4 (MESAFARTAI) com DEMO pelo professor
 3 - Segunda etapa da fase 1 do projeto da AC3/AC4 (MESAFARTAI) explicação e construção.
 
-PARTE 1 - CONTEXTO TEÓRICO - 
+PARTE 1 - CONTEXTO TEÓRICO - RAMDOM FOREST E K-MEANS - MODELO HÍBRIDO DE MACHINE LEARNING
 
+RAMDOM FOREST
+Random Forest é um algoritmo de aprendizado de máquina que combina várias árvores de decisão para produzir uma previsão mais robusta.
+
+Funciona assim:
+1. Cria várias árvores de decisão usando amostras e características dos dados.
+2. Cada árvore produz uma previsão.
+3. O algoritmo combina os resultados: por votação, em problemas de classificação, ou pela média, em problemas de regressão.
+
+Exemplo: para prever se um cliente vai cancelar um serviço, cada árvore analisa fatores como tempo de contrato, valor da mensalidade e histórico de reclamações.
+O Random Forest combina as previsões das árvores para chegar ao resultado final. Uma árvore toma uma decisão; o Random Forest combina decisões de várias árvores.
+
+Principal vantagem: combinar várias árvores tende a reduzir o risco de sobreajuste (overfitting) em comparação com uma única árvore. 
+
+MODELO HÍBRIDO DE MACHINE LEARNING - RAMDOM FOREST E K-MEANS
+Um exemplo de modelo híbrido é combinar K-Means para descobrir grupos de clientes com Random Forest para prever o grupo de um novo cliente.
+O K-Means trabalha sem rótulos. Depois, os grupos encontrados são utilizados como rótulos para treinar o Random Forest.
+
+Código: K-Means + Random Forest
+
+# pip install scikit-learn
+from sklearn.cluster import KMeans
+from sklearn.ensemble import RandomForestClassifier
+
+# Dados: [idade, renda em milhares]
+X = [
+    [20, 2], [22, 2.5], [25, 3],
+    [45, 8], [48, 9], [50, 10]
+]
+
+# 1. K-Means descobre 2 grupos automaticamente
+kmeans = KMeans(n_clusters=2, random_state=42, n_init=10)
+grupos = kmeans.fit_predict(X)
+print("Grupos descobertos:", grupos)
+
+# 2. Random Forest aprende a reproduzir esses grupos
+modelo = RandomForestClassifier(random_state=42)
+modelo.fit(X, grupos)
+
+# 3. Classifica um novo cliente: 30 anos, renda de R$ 4 mil
+novo_cliente = [[30, 4]]
+grupo_previsto = modelo.predict(novo_cliente)
+print("Grupo previsto:", grupo_previsto[0])
+
+
+O que diferencia os algoritmos?
+- K-Means: procura agrupamentos nos dados.
+- Random Forest: aprende a classificar os dados usando os grupos produzidos pelo K-Means como rótulos.
+
+Observações:
+- Esse exemplo é híbrido no sentido de combinar aprendizado não supervisionado e supervisionado em sequência.
+- O Random Forest aprende a reproduzir os agrupamentos encontrados, não necessariamente categorias reais de clientes.
+- Como o conjunto de dados é muito pequeno, o código é demonstrativo, não um modelo confiável para uso real.
+
+
+PARTE 2 - Revisão da implementação do projeto da AC3/AC4 (MESAFARTAI) com DEMO pelo professor
+- Seguir pela DEMO do professor e pelo arquivo guia_simplificado_fase1_etapa1_ac3.txt no diretório AULA_09
+
+PARTE 3 - ATIVIDADE AC-3 DE HOJE: Segunda etapa da fase 1 do projeto da AC3/AC4 (MESAFARTAI) explicação e construção.
+- Seguir pelo arquivo guia_fase1_etapa2_ac3.txt no diretório AULA_09

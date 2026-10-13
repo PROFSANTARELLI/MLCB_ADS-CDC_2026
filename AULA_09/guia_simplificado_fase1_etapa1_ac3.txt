@@ -10,7 +10,7 @@ PASSO 1: Criar o repositório MESAFARTAAI
 1. Acesse o GITHUB e crie o repositório público chamado PROJETO-MESAFARTAI
 2. Crie com o README.md ativo
 3. Adicione todos os membro do grupo como colaboradores e também o professor
-4. Crie o diretório /assets/ e insira os dois arquivos de arquitetura do projeto: (está no documento da aula passada)
+4. Crie o diretório assets/ e insira os dois arquivos de arquitetura do projeto: (está no documento da aula passada)
  - arquitetura_mesafartai.png
  - diag_fluxo_mesafartai.png
 
@@ -19,7 +19,7 @@ Passo 2: Arquivo README.md e Pasta /docs
  - Título oficial: MESAFARTAI – Logística e Inteligência Assistiva no Combate à Fome
  - Descrição resumida da solução e alinhamento com a ODS 2 da ONU. (está no documento da aula passada - Item 1 manifesto)
  - Nome Completo e RA de cada integrante.
-2.	Criar a pasta /docs e o arquivo docs/regras.txt descrevendo o que está sendo pedido na etapa 1 do projeto. (está no documento da aula passada - Item 5 passo a passo executável)
+2.	Criar a pasta docs/ e dentro o arquivo regras.txt descrevendo o que está sendo pedido na etapa 1 do projeto. (está no documento da aula passada - Item 5 passo a passo executável)
 3.	Criar o arquivo docs/escopo_projeto.md descrevendo:
  - O problema de negócio abordado. (está no documento da aula passada - Item 3 escopo)
  - O público-alvo (Doadores vs. ONGs).
@@ -97,7 +97,7 @@ if __name__ == "__main__":
     inicializar_banco()
 
 ------------------------------------------------------------------------
-- Salve o arquivo DB dentro do diretório /src/
+- Salve o arquivo DB dentro do diretório src/
 
 
 5. CHECKLIST DA FASE 1 ETAPA 1

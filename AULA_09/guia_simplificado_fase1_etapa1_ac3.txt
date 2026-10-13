@@ -1,1 +1,110 @@
+========================================================================
+MESAFARTAI - REVISÃO FASE 1 / ETAPA 1 (AC-3)
+========================================================================
+OBJETIVO: Garantir que todos os grupos estejam com os detalhes,
+estrutura de pastas organizada, banco SQLite gerado e histórico de
+commits sincronizado no GitHub.
+------------------------------------------------------------------------
+
+PASSO 1: Criar o repositório MESAFARTAAI
+1. Acesse o GITHUB e crie o repositório público chamado PROJETO-MESAFARTAI
+2. Crie com o README.md ativo
+3. Adicione todos os membro do grupo como colaboradores e também o professor
+4. Crie o diretório /assets/ e insira os dois arquivos de arquitetura do projeto: (está no documento da aula passada)
+ - arquitetura_mesafartai.png
+ - diag_fluxo_mesafartai.png
+
+Passo 2: Arquivo README.md e Pasta /docs
+1.	Criar (caso não tenha feito no passo 1) o arquivo README.md na raiz com:
+ - Título oficial: MESAFARTAI – Logística e Inteligência Assistiva no Combate à Fome
+ - Descrição resumida da solução e alinhamento com a ODS 2 da ONU. (está no documento da aula passada - Item 1 manifesto)
+ - Nome Completo e RA de cada integrante.
+2.	Criar a pasta /docs e o arquivo docs/regras.txt descrevendo o que está sendo pedido na etapa 1 do projeto. (está no documento da aula passada - Item 5 passo a passo executável)
+3.	Criar o arquivo docs/escopo_projeto.md descrevendo:
+ - O problema de negócio abordado. (está no documento da aula passada - Item 3 escopo)
+ - O público-alvo (Doadores vs. ONGs).
+ - O escopo das intenções tratadas e os dados que serão coletados no chat.(está no documento da aula passada - Item 5 passo 3 - apenas a descrição sem o código)
+
+Passo 3: Identidade Visual e Criação do Logotipo via IA
+1.	O grupo deve formular um prompt criativo e utilizar um gerador de imagem por IA  para criar o logotipo do sistema.
+2.	Requisito do Logo: Deve unir conceitos de alimento/acolhimento e tecnologia/IA assistiva.
+- EXEMPLO:
+Gerar Ícone de logotipo 3D isométrico moderno para um sistema inteligente de doação de alimentos chamado 'MESAFARTAI- MESAFARTAI – Logística e Inteligência Assistiva no Combate à Fome'. O ícone apresenta uma caixa de entregas ou prato estilizado integrado a nós de rede digital e um símbolo de pino de localização, representando logística inteligente e conexão por IA. Cores vibrantes: verde esmeralda, laranja quente e azul ciano. Renderização 3D limpa, textura fosca suave, sombras suaves, isolado em um fundo branco sólido.
+
+3.	Salvar a imagem gerada em assets/logo_mesafartai.png.
+4.	Registrar o prompt exato utilizado dentro do arquivo docs/escopo_projeto.md.
+
+PASSO 4: CRIAR O BANCO DE DADOS INICIAL (`src/database.py`)
+ - Crie e commite o script database.py dentro do diretório /src/
+ - Execute o script com o Colab ou VSCODE, no terminal:
+
+import sqlite3
+def inicializar_banco():
+    conn = sqlite3.connect('mesafartai.db')
+    cursor = conn.cursor()
+
+    # 1. Tabela de Usuários
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS usuarios (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nome TEXT NOT NULL,
+            tipo TEXT CHECK(tipo IN ('DOADOR', 'ONG')) NOT NULL,
+            cep TEXT NOT NULL,
+            latitude REAL,
+            longitude REAL,
+            telefone TEXT
+        )
+    ''')
+
+    # 2. Tabela de Doações
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS doacoes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            doador_id INTEGER,
+            descricao_alimento TEXT NOT NULL,
+            quantidade_kg REAL,
+            data_validade TEXT,
+            status TEXT DEFAULT 'DISPONIVEL',
+            FOREIGN KEY (doador_id) REFERENCES usuarios (id)
+        )
+    ''')
+
+    # 3. Tabela de Matches
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS matches (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            doacao_id INTEGER,
+            ong_id INTEGER,
+            distancia_km REAL,
+            data_match TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (doacao_id) REFERENCES doacoes (id),
+            FOREIGN KEY (ong_id) REFERENCES usuarios (id)
+        )
+    ''')
+
+    # Seeds Iniciais
+    cursor.execute("SELECT COUNT(*) FROM usuarios")
+    if cursor.fetchone()[0] == 0:
+        cursor.execute("INSERT INTO usuarios (nome, tipo, cep, latitude, longitude, telefone) VALUES ('ONG Prato Quente', 'ONG', '06700-000', -23.612, -46.781, '11999990001')")
+        cursor.execute("INSERT INTO usuarios (nome, tipo, cep, latitude, longitude, telefone) VALUES ('Supermercado Silva', 'DOADOR', '06701-000', -23.615, -46.785, '11999990003')")
+        print(" Dados iniciais de teste (seeds) inseridos com sucesso!")
+
+    conn.commit()
+    conn.close()
+    print(" Banco 'mesafartai.db' criado e atualizado!")
+
+if __name__ == "__main__":
+    inicializar_banco()
+
+------------------------------------------------------------------------
+- Salve o arquivo DB dentro do diretório /src/
+
+
+5. CHECKLIST DA FASE 1 ETAPA 1
+Ao finalizar os passos da aula o grupo deve verificar a lista de checagem:
+•	[ ] Repositório PROJETO-MESAFARTAI criado e público no GitHub.
+•	[ ] README.md preenchido com descrição, ODS 2, membros.
+•	[ ] Pasta /docs criada contendo regras.txt e escopo_projeto.md (com o prompt da IA incluso).
+•	[ ] Pasta /src criada com o arquivo database.py executado sem erros, gerando o arquivo mesafartai.db.
+•	[ ] E-mail enviado ao professor até o final do horário de aula com: link do repositório e nome dos integrantes do grupo
 

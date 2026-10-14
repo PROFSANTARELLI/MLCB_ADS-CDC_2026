@@ -29,7 +29,7 @@ Passo 3: Identidade Visual e Criação do Logotipo via IA
 1.	O grupo deve formular um prompt criativo e utilizar um gerador de imagem por IA  para criar o logotipo do sistema.
 2.	Requisito do Logo: Deve unir conceitos de alimento/acolhimento e tecnologia/IA assistiva.
 - EXEMPLO:
-Gerar Ícone de logotipo 3D isométrico moderno para um sistema inteligente de doação de alimentos chamado 'MESAFARTAI- MESAFARTAI – Logística e Inteligência Assistiva no Combate à Fome'. O ícone apresenta uma caixa de entregas ou prato estilizado integrado a nós de rede digital e um símbolo de pino de localização, representando logística inteligente e conexão por IA. Cores vibrantes: verde esmeralda, laranja quente e azul ciano. Renderização 3D limpa, textura fosca suave, sombras suaves, isolado em um fundo branco sólido.
+Gerar Ícone de logotipo 3D isométrico moderno para um sistema inteligente de doação de alimentos chamado 'MESAFARTAI – Logística e Inteligência Assistiva no Combate à Fome'. O ícone apresenta uma caixa de entregas ou prato estilizado integrado a nós de rede digital e um símbolo de pino de localização, representando logística inteligente e conexão por IA. Cores vibrantes: verde esmeralda, laranja quente e azul ciano. Renderização 3D limpa, textura fosca suave, sombras suaves, isolado em um fundo branco sólido.
 
 3.	Salvar a imagem gerada em assets/logo_mesafartai.png.
 4.	Registrar o prompt exato utilizado dentro do arquivo docs/escopo_projeto.md.
@@ -102,9 +102,9 @@ if __name__ == "__main__":
 
 5. CHECKLIST DA FASE 1 ETAPA 1
 Ao finalizar os passos da aula o grupo deve verificar a lista de checagem:
-•	[ ] Repositório PROJETO-MESAFARTAI criado e público no GitHub.
-•	[ ] README.md preenchido com descrição, ODS 2, membros.
-•	[ ] Pasta /docs criada contendo regras.txt e escopo_projeto.md (com o prompt da IA incluso).
-•	[ ] Pasta /src criada com o arquivo database.py executado sem erros, gerando o arquivo mesafartai.db.
-•	[ ] E-mail enviado ao professor até o final do horário de aula com: link do repositório e nome dos integrantes do grupo
+•	[x] Repositório PROJETO-MESAFARTAI criado e público no GitHub.
+•	[x] README.md preenchido com descrição, ODS 2, membros.
+•	[x] Pasta /docs criada contendo regras.txt e escopo_projeto.md (com o prompt da IA incluso).
+•	[x] Pasta /src criada com o arquivo database.py executado sem erros, gerando o arquivo mesafartai.db.
+•	[x] E-mail enviado ao professor até o final do horário de aula com: link do repositório e nome dos integrantes do grupo
 

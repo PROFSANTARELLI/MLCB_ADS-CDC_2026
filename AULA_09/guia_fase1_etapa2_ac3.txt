@@ -16,10 +16,10 @@ Em seguida: cd PROJETO-MESAFARTAI
  1.	Abra a pasta do projeto no VS Code (code . no terminal ou Arquivo -> Abrir Pasta).
 
  2.	Crie o arquivo requirements.txt na raiz com o conteúdo abaixo:
-streamlit==1.38.0
-scikit-learn==1.5.1
-pandas==2.2.2
-numpy==1.26.4
+streamlit
+scikit-learn
+pandas
+numpy
 
  3.	Abra o terminal do VS Code e instale os pacotes:
 pip install -r requirements.txt

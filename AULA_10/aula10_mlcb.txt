@@ -3,3 +3,110 @@ ROTEIRO AULA 10
 1 - Projeto Tech - avaliação parcial 
 2 - Contexto Teórico Demo do professor
 3 - 3ª e última fase da AC-3 (Valor 0,5 ponto)
+ - Construir o desafio para destravar a atividade de hoje
+ - Compreender e construir a etapa 3 da AC-3
+
+PARTE 1 - CONTEXTO TEÓRICO
+1. Por que usar Regex para Entidades e KNN para Matchmaking?
+No fluxo de um assistente virtual inteligente, a IA descobre a intenção da frase, mas não consegue estruturar os detalhes da doação para salvar no banco de dados,
+nem decidir sozinho para qual instituição aquela comida deve ir.
+
+O REGEX e o KNN:
+Regex (Expressões Regulares) → Estruturação de Dados do Chat:
+- O Problema: O usuário escreve em texto livre: "Quero doar 15 kg de arroz que vencem amanhã".
+O banco de dados SQL não entende esse texto solto; ele precisa de colunas numéricas e datas limpas (quantidade_kg: 15.0, validade: 2026-10-28).
+
+- A Solução: O Regex atua como um "extrator/aspirador de padrões" no texto. Ele varre a frase e raspa exatamente os números seguidos de
+unidades(kg, caixas) e os termos temporais (hoje, amanhã).
+
+
+KNN (K-Nearest Neighbors):
+- O Problema: Como decidir para qual ONG enviar a comida? Não temos uma regra fixa nem um modelo treinado com respostas prontas, pois novas ONGs e doadores 
+se cadastram a todo momento em localizações diferentes.
+
+- A Solução: O KNN calcula a menor distância espacial/vetorial no mapa 2D entre a latitude/longitude do doador e todas as ONGs ativas cadastradas no SQLite.
+A ONG com a menor distância em km é a escolhida automaticamente para receber o match.
+
+CÓDIGO:
+
+import re
+import numpy as np
+from sklearn.neighbors import NearestNeighbors
+
+# =====================================================================
+# 1. ETAPA REGEX: Transformar texto livre em Dados Estruturados
+# =====================================================================
+mensagem_chat = "Olá! Tenho 25 kg de tomate para doar hoje perto do centro."
+
+# Padrão Regex para capturar números seguidos de 'kg' ou 'quilos'
+padrao_massa = r'(\d+(?:[\.,]\d+)?)\s*(?:kg|quilos)'
+# padrão r'(\d+(?:[\.,]\d+)?)\s*(?:kg|quilos)' busca por números inteiros ou decimais (aceitando tanto ponto quanto vírgula, ex: 2,5 ou 2.5) seguidos opcionalmente por espaços e pelas palavras kg ou quilos.
+
+match = re.search(padrao_massa, mensagem_chat, re.IGNORECASE)
+quantidade_extraida = float(match.group(1)) if match else 1.0
+
+print(f"Texto bruto do chat: '{mensagem_chat}'")
+print(f"-> [Regex] Quantidade limpa extraída para o SQLite: {quantidade_extraida} kg\n")
+
+# =====================================================================
+# 2. ETAPA KNN: Encontrar a ONG mais próxima para receber os 25 kg
+# =====================================================================
+# Localização do Doador (Latitude, Longitude)
+coordenada_doador = [[-23.615, -46.785]]
+
+# ONGs cadastradas no Banco de Dados: [ID, Nome, Lat, Long]
+ongs_banco = [
+    [1, "ONG Prato Quente", -23.612, -46.781], # ~0.5 km
+    [2, "Abrigo Esperança", -23.630, -46.800]  # ~2.2 km
+]
+
+# Matriz apenas com as coordenadas (Lat, Long) para o algoritmo
+coords_ongs = np.array([[ong[2], ong[3]] for ong in ongs_banco])
+
+# Treinamento do KNN para encontrar o 1º vizinho mais próximo
+knn = NearestNeighbors(n_neighbors=1, metric='euclidean')
+knn.fit(coords_ongs)
+
+# Cálculo da menor distância
+distancias, indices = knn.kneighbors(coordenada_doador)
+
+idx_ong = indices[0][0]
+ong_recomendada = ongs_banco[idx_ong]
+distancia_km = distancias[0][0] * 111  # Conversão aproximada para KM
+
+print(f"-> Match Logístico Realizado!")
+print(f"   ONG Recomendada: {ong_recomendada[1]} (ID: {ong_recomendada[0]})")
+print(f"   Distância Calculada: {distancia_km:.2f} km do doador.")
+
+DESTRAVE A ENTREGA DE HOJE (AC3-PARTE FINAL – PROJETO MESAFARTAI)
+"O Filtro Anti-Desperdício" (Desafio focado em Regex)
+Objetivo:
+- Testar se os alunos sabem criar padrões de Expressões Regulares.
+- Preparação para a prova semestral
+
+
+Desafio para destravar a atividade AC3-FINAL de hoje
+Imagine que um doador enviou uma mensagem bagunçada e informal. O grupo precisa criar um script que limpe o texto e extraia as informações obrigatórias SEM USO DE IA:
+
+1. O tipo de alimento.
+2. A quantidade e a unidade.
+3. Se o alimento é perecível (validade em dias).
+
+O que se deve programar no Colab:
+import re
+# Mensagem de teste que deve ser processada:
+mensagem = "Atenção: estamos doando 35 lt de leite fresco que vence em 2 dias!"
+
+# O ALUNO DEVE PREENCHER OS PADRÕES REGEX ABAIXO:
+padrao_qtd = r'...'  # Deve capturar 35 lt
+padrao_dias = r'...' # Deve capturar 2 dias
+
+# Saída esperada no print:
+# Alimento: Leite | Quantidade: 35.0 lt | Urgência: ALTA (Vence em 2 dias)
+
+Regra de Liberação:
+- Rodar no Colab ou VSCODE, tirar um print da tela com o código funcionando e enviar no e-mail flavio.santarelli@pro.fecaf.com.br, com o assunto `[DESAFIO REGEX]`.
+- Apenas um email por grupo
+- O professor valida a resposta e devolve com a construção da etapa 3 do projeto MESAFARTAI
+
+PROIBIDO PEDIR PARA A IA

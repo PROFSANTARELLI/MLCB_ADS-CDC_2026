@@ -3,3 +3,279 @@ AULA 11 - MLCB
 PARTE 1 - CONHECENDO O STREAMLIT
 
 PARTE - 2 AC-4 PARTE 1
+
+===============================================================================================
+PARTE 1 - CONHECENDO O STREAMLIT
+===============================================================================================
+O que é o Streamlit?
+
+Uma biblioteca Python que transforma um script em um aplicativo web interativo, sem HTML, CSS ou JavaScript.
+Você escreve código Python normal, e com comandos desenha a tela: título, texto, botão, gráfico, tabela.
+
+Comandos mais usados:
+Comando	                                      O que faz
+st.title, st.write                            Mostram títulos e textos
+st.text_input, st.slider, st.selectbox	      Recebem dados do usuário
+st.button	                                    Botão que devolve True no clique
+st.line_chart, st.bar_chart                   Gráficos rápidos
+st.dataframe	                                Tabela interativa
+st.sidebar	                                  Coloca elementos na barra lateral
+st.session_state	                            Memória entre as execuções
+
+Como rodar:
+pip install streamlit
+streamlit run app_streamlit.py (O app abre no navegador, normalmente em http://localhost:8501)
+
+EXEMPLO EM CÓDIGO:
+# =============================================================================
+# PAINEL DE DOAÇÕES - Aula de Streamlit
+# Rodar com:  streamlit run app_streamlit.py
+# =============================================================================
+import streamlit as st
+import pandas as pd
+from datetime import datetime
+
+# 0. CONFIGURAÇÃO DA PÁGINA (deve ser o primeiro comando do Streamlit)
+st.set_page_config(page_title="Painel de Doações", page_icon="🥫")
+
+st.title("Painel de Doações de Alimentos")
+st.caption("Exemplo de: session_state, colunas, sidebar, formulário, métricas e gráfico")
+
+# 1. MEMÓRIA DA SESSÃO
+# O Streamlit executa o script do zero a cada clique. Variáveis comuns são
+# recriadas; o st.session_state guarda os dados entre as execuções.
+if "doacoes" not in st.session_state:
+    st.session_state.doacoes = []  # lista de dicionários (uma doação por item)
+
+# 2. BARRA LATERAL (sidebar): configurações e botão de reset
+st.sidebar.header("Configurações")
+meta = st.sidebar.slider("Meta de arrecadação (kg)", min_value=50, max_value=500, value=200, step=10)
+
+if st.sidebar.button("Zerar painel"):
+    st.session_state.doacoes = []  # esvazia a memória
+
+# 3. FORMULÁRIO DE ENTRADA, organizado em 2 colunas
+st.subheader("Registrar nova doação")
+col1, col2 = st.columns(2)
+
+with col1:
+    doador = st.text_input("Nome do doador")
+    categoria = st.selectbox("Categoria", ["Arroz", "Feijão", "Macarrão", "Óleo", "Enlatados", "Outros"])
+
+with col2:
+    quantidade = st.number_input("Quantidade (kg)", min_value=1, max_value=100, value=5)
+
+# 4. AÇÃO DO BOTÃO: st.button devolve True apenas no momento do clique
+if st.button("Registrar doação", type="primary"):
+    if doador.strip() == "":
+        st.warning("Informe o nome do doador.")
+    else:
+        total_antes = sum(d["Kg"] for d in st.session_state.doacoes)
+
+        st.session_state.doacoes.append({
+            "Hora": datetime.now().strftime("%H:%M:%S"),
+            "Doador": doador.strip(),
+            "Categoria": categoria,
+            "Kg": quantidade,
+        })
+        st.success(f"Obrigado, {doador.strip()}! Doação de {quantidade} kg registrada.")
+
+        # Comemora só no momento em que a meta é atingida
+        if total_antes < meta <= total_antes + quantidade:
+            st.balloons()
+
+# 5. INDICADORES (métricas) calculados a partir da memória
+total = sum(d["Kg"] for d in st.session_state.doacoes)
+qtd_doacoes = len(st.session_state.doacoes)
+faltam = max(meta - total, 0)
+
+st.divider()
+m1, m2, m3 = st.columns(3)
+m1.metric("Total arrecadado", f"{total} kg")
+m2.metric("Nº de doações", qtd_doacoes)
+m3.metric("Faltam para a meta", f"{faltam} kg")
+
+# Barra de progresso: o valor precisa estar entre 0.0 e 1.0
+st.progress(min(total / meta, 1.0), text=f"{min(total / meta, 1.0):.0%} da meta de {meta} kg")
+
+# 6. TABELA E GRÁFICO (só aparecem se houver dados)
+if st.session_state.doacoes:
+    df = pd.DataFrame(st.session_state.doacoes)
+
+    st.subheader("Doações por categoria")
+    st.bar_chart(df.groupby("Categoria")["Kg"].sum())
+
+    st.subheader("Histórico")
+    st.dataframe(df, width="stretch", hide_index=True)
+else:
+    st.info("Nenhuma doação registrada ainda. Use o formulário acima!")
+
+Tarefa 1: vocês deverão rodar o código e estar a aplicação ate atingir 200kg de alimento, sendo que o limite máximo de cada doação é de 25kg.
+Print a tela quando atingir o limite e salve no repositório do projeto MESAFARTAI, dentro da pasta docs com o nome teste_streamlit.png (ou jpg ou tiff)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=================================================================================================
+PARTE - 2 AC-4 PARTE 1
+=================================================================================================
+
+O que faremos na Fase 2:
+Nas aulas anteriores, construímos os módulos isolados em segundo plano (Back-End / Inteligência):
+ - src/nlu.py: Classifica a intenção com Random Forest e aplica a trava de segurança (Threshold).
+ - src/entities.py: Raspa o texto com Regex para extrair a quantidade (kg), o alimento e a data.
+ - src/matchmaking.py: Encontra a ONG mais próxima usando KNN com base no SQLite.
+
+O objetivo da Aula: Unir todos esses módulos em uma única aplicação web interativa em Python usando Streamlit (src/app.py),
+permitindo que qualquer pessoa converse com a IA, cadastre doações e visualize o impacto em tempo real num Dashboard.
+
+MÓDULO PRINCIPAL INTERATIVO (src/app.py) - VERSÃO - INICIAL
+No VS Code, criar o arquivo src/app.py que integra o chatbot com a lógica do NLU, Regex, SQLite e KNN:
+
+"""
+MESAFARTAI
+Arquivo: src/app.py
+"""
+
+import streamlit as st
+import pandas as pd
+import sqlite3
+from nlu import MotorNLU
+from entities import ExtratorEntidades
+from matchmaking import MotorMatchmaking
+
+# Configuração da página do Streamlit
+st.set_page_config(
+    page_title="MESAFARTAI - Combate à Fome",
+    page_icon=" ", # TODO: coloque um ícone aqui
+    layout="wide"
+)
+
+# Inicializar instâncias dos motores
+nlu = MotorNLU()
+extrator = ExtratorEntidades()
+matchmaker = MotorMatchmaking()
+
+st.title(" ") # TODO: escolha um título aqui
+st.caption(" ") # TODO: escolha um subtítulo aqui
+
+# Criação de abas para separar o Chatbot do Dashboard
+aba_chat, aba_dashboard = st.tabs(["💬 Chatbot de Doações", "📊 Dashboard de Impacto Social"])
+
+with aba_chat:
+    st.subheader("Conversar com o Assistente de Doações")
+    
+    # Historico da sessão de conversa
+    if "mensagens" not in st.session_state:
+        st.session_state.mensagens = [
+            {"role": "assistant", "content": " "} # TODO: crie um mensagem de iniciar o chat
+        ]
+
+    # Exibir mensagens anteriores
+    for msg in st.session_state.mensagens:
+        st.chat_message(msg["role"]).write(msg["content"])
+
+    # Entrada do Usuário
+    if prompt := st.chat_input("Ex: Tenho 20 kg de arroz para doar hoje no centro"):
+        st.session_state.mensagens.append({"role": "user", "content": prompt})
+        st.chat_message("user").write(prompt)
+
+        # 1. Processar NLU
+        intencao, confianca = nlu.predizer_intencao(prompt)
+
+        # 2. Resposta baseada na intenção
+        if intencao == "cadastrar_doacao" and confianca >= 0.60:
+            entidades = extrator.processar_texto(prompt)
+            match = matchmaker.encontrar_ong_mais_proxima(-23.615, -46.785) # Coordenada exemplo
+            
+            resposta = f"**Doação Registrada com Sucesso!**\n\n" \
+                       f"• **Item:** {entidades['alimento']}\n" \
+                       f"• **Quantidade:** {entidades['quantidade_kg']} kg\n" \
+                       f"• **Validade Estimada:** {entidades['data_validade']}\n\n"
+            
+            if match:
+                resposta += f"**Match Logístico (KNN):** Encaminhado para **{match['ong_nome']}** (~{match['distancia_estimada']} km)."
+            
+        elif intencao == "solicitar_alimentos":
+            resposta = "Entendemos seu pedido. Estamos buscando doações disponíveis próximas a você no banco de dados."
+        else:
+            resposta = "Desculpe, não entendi perfeitamente sua mensagem. Poderia informar o alimento e a quantidade em kg?"
+
+        st.session_state.mensagens.append({"role": "assistant", "content": resposta})
+        st.chat_message("assistant").write(resposta)
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+DASHBOARD - VERSÃO 1
+Na mesma aplicação (src/app.py), dentro do bloco with aba_dashboard:, implementamos o painel com indicadores chave (KPIs) para a ODS 2:
+
+with aba_dashboard:
+    st.subheader("Indicadores Logísticos e Sociais em Tempo Real")
+    
+    # Conexão com o banco SQLite para alimentar o Dashboard
+    conn = sqlite3.connect("mesafartai.db")
+    df_ongs = pd.read_sql_query("SELECT * FROM usuarios WHERE tipo = 'ONG'", conn)
+    conn.close()
+
+    # Métricas Globais (KPIs)
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Total de ONGs Ativas", len(df_ongs))
+    col2.metric("Alimentos Arrecadados (kg)", "1,250 kg", "+150 kg esta semana")
+    col3.metric("Refeições Estimadas Proporcionadas", "~2,500 refeições", "ODS 2")
+
+    st.markdown("---")
+    st.write("###  Unidades de Atendimento Cadastradas")
+    st.dataframe(df_ongs[["id", "nome", "latitude", "longitude"]], use_container_width=True)
+
+
+Para rodar: streamlit run app.py
+
+
+Após deixar TUDO funcionando, realizar:
+- push e committ dos arquivos
+- Printar a tela principal em deixar como imagem em /docs com o nome: etapa_ac4_parte1.png

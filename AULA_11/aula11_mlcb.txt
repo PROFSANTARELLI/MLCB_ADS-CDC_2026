@@ -114,54 +114,6 @@ Tarefa 1: vocês deverão rodar o código e estar a aplicação ate atingir 200k
 Print a tela quando atingir o limite e salve no repositório do projeto MESAFARTAI, dentro da pasta docs com o nome teste_streamlit.png (ou jpg ou tiff)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 =================================================================================================
 PARTE - 2 AC-4 PARTE 1
 =================================================================================================

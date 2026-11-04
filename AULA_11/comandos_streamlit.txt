@@ -1,0 +1,33 @@
+ABRA O VSCODE E BAIXE O PROJETO:
+EM UM TERMINAL NOVO DIGITE O ENDEREÇO DO SEU PROJETO
+git clone https://github.com/"nome seu usuário github"/PROJETO-MESAFARTAI
+cd PROJETO-MESAFARTAI
+
+use o set de ambiente caso precise para os demais comandos:
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
+Abra o projeto completo:
+code .
+
+Abra novo terminal e habilite o venv:
+python -m venv venv
+.\venv\Scripts\activate.ps1
+
+Faça upgrade do pip:
+python.exe -m pip install --upgrade pip
+
+Instale o STREAMLIT
+pip install streamlit
+
+rode o requirements novamente:
+pip install -r requirements.txt
+
+Crie o arquivo src/app.py e coloque o código com os ajustes pedidos
+
+Rode a aplicação com o comando abaixo dentro da pasta src
+
+Após rodar e fazer os testes, atualize o projeto no GitHub com os comandos:
+git status
+git add .
+git commit -m "versão 1 Streamlit"
+git push origin main

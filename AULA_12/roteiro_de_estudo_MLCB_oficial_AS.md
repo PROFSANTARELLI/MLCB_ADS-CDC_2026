@@ -1,11 +1,14 @@
 # Roteiro de Estudo — Inteligência Artificial, NLP e Sistemas Interativos
 
 1 - Foquem estudos nas aulas de 5 à 12.
+
 2 - Refaçam atividades e tentem aprender de verdade
+
 3 - Use a IA como fonte de estudo apenas. Peça para ela te ajudar a estudar.
 
 # Sobre a prova:
 1 - Serão 3 questões técnicas com valor de 1 ponto cada
+
 2 - A prova é sem consulta e não será permitido uso de IA
 
 

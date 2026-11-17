@@ -1,8 +1,4 @@
-# 📚 Roteiro de Estudo Completo — Inteligência Artificial, NLP e Sistemas Interativos
-
-Este guia detalha todos os fundamentos teóricos e práticos exigidos na avaliação. Cada tópico apresenta o funcionamento interno dos algoritmos, exemplos de código, armadilhas comuns e a conexão entre os módulos.
-
----
+# Roteiro de Estudo — Inteligência Artificial, NLP e Sistemas Interativos
 
 ## 1. Processamento de Linguagem Natural (NLP) e Classificação de Intenções
 
@@ -69,41 +65,3 @@ Considere o padrão: `r'(\d+(?:[\.,]\d+)?)\s*(?:kg|quilos|g)\b'`
   * $K$ muito pequeno ($K=1$): Fronteira de decisão altamente irregular e sensível a ruídos (*overfitting* / alta variância).
   * $K$ muito grande: Suaviza excessivamente a fronteira, misturando regiões distantes (*underfitting* / alto viés).
   * **Sensibilidade à Escala:** Variáveis com magnitudes maiores (ex.: salário em milhares vs. idade em dezenas) dominam o cálculo da distância se não forem previamente normalizadas (*MinMaxScaler* ou *StandardScaler*).
-
----
-
-## 4. Aprendizado por Reforço (*Reinforcement Learning* — Q-Learning)
-
-Diferente do aprendizado supervisionado (que aprende com pares entrada/rótulo prontos), o Aprendizado por Reforço baseia-se na interação contínua de um **Agente** com um **Ambiente** através de tentativas, erros e sinais de recompensa.
-
-### 4.1. A Equação de Bellman no Q-Learning
-O agente mantém uma matriz de qualidade $Q(s, a)$ que estima o retorno acumulado esperado ao executar a ação $a$ no estado $s$. A cada transição $(s, a, r, s')$, a tabela é atualizada pela regra:
-
-$$Q(s, a) \leftarrow Q(s, a) + \alpha \underbrace{\left[ r + \gamma \max_{a'} Q(s', a') - Q(s, a) \right]}_{\text{Erro de Diferença Temporal (TD Error)}}$$
-
-* **$\alpha$ (Taxa de Aprendizado — *Learning Rate*):** Define o quanto a nova experiência sobrescreve o valor antigo ($0 < \alpha \le 1$).
-* **$r$ (Recompensa Imediata):** O ganho ou penalidade recebida instantaneamente após a ação.
-* **$\gamma$ (Fator de Desconto — *Discount Factor*):** Controla a importância das recompensas futuras ($0 \le \gamma < 1$).
-  * Se $\gamma \to 1$: O agente valoriza fortemente recompensas de longo prazo.
-  * Se $\gamma = 0$: O agente torna-se **míope** (*myopic*), considerando exclusivamente a recompensa imediata $r$ e ignorando o futuro ($\max_{a'} Q(s', a')$).
-* **TD Error (Erro de Diferença Temporal):** A expressão entre colchetes mede a diferença entre a nova estimativa de retorno ($r + \gamma \max_{a'} Q(s', a')$) e a estimativa anterior ($Q(s, a)$).
-
-### 4.2. Dilema *Exploration vs. Exploitation*
-* **Exploitation (Explotação):** Escolher a ação com o maior Q-Value conhecido até o momento para maximizar o ganho garantido.
-* **Exploration (Exploração):** Testar ações aparentemente subótimas ou caminhos não visitados para descobrir se escondem recompensas ainda maiores no longo prazo (comumente implementado via política $\epsilon$-greedy).
-
----
-
-## 5. Persistência Relacional (SQLite3) e Interfaces Reativas (Streamlit)
-
-### 5.1. Transações e Segurança em SQLite3
-* **Consultas Parametrizadas (`?`):** Nunca concatene variáveis diretamente em strings SQL (`f"INSERT ... {var}"`), pois isso expõe o sistema a ataques de *SQL Injection*. O uso de tuplas com placeholders `(var1, var2)` delega ao driver do banco a sanitização dos tipos.
-* **Controle Transacional (`conn.commit()`):** Operações de escrita (`INSERT`, `UPDATE`, `DELETE`) abrem uma transação pendente. Se `conn.close()` for chamado sem antes executar `conn.commit()`, o SQLite realiza um **rollback automático**, descartando todas as alterações feitas naquela sessão.
-
-### 5.2. Modelo de Execução Reativo do Streamlit
-* **Execução Top-Down:** O Streamlit não mantém um loop de eventos tradicional no front-end. A cada interação do usuário (clique em botão, envio de texto), **todo o script Python é reexecutado da linha 1 até o final**.
-* **Variáveis Locais vs. `st.session_state`:**
-  * Uma variável comum declarada no script (ex.: `contador = 0`) é reinicializada para `0` a cada clique.
-  * O dicionário `st.session_state` sobrevive às reexecuções do script e é **isolado por sessão/aba de cada usuário individual** (ideal para históricos de chat e contadores da interface).
-* **`st.session_state` vs. `@st.cache_resource`:**
-  * Enquanto `st.session_state` guarda dados individuais da sessão de um usuário, o decorador `@st.cache_resource` armazena objetos pesados em memória **compartilhada globalmente entre todos os usuários** conectados ao servidor (ex.: modelos de Machine Learning já carregados ou conexões persistentes), evitando que o modelo seja recarregado do disco a cada clique.
